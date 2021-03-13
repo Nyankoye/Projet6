@@ -1,0 +1,265 @@
+$headerColor:#68839C;
+$resumeColor:#2C0101;
+$buttonColor:#E2B8A0;
+$heightItems:150px;
+@mixin sansationFont {
+    font-family: "Sansation",serif;
+}
+@mixin mainBackgroundColore {
+    background-color: rgba(104,131,156,0.1);
+}
+%fontSizeMain{
+    font-size: 18px;
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('../polices/Roboto-Regular.eot');
+    src: url('../polices/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../polices/Roboto-Regular.woff2') format('woff2'),
+        url('../polices/Roboto-Regular.woff') format('woff'),
+        url('../polices/Roboto-Regular.ttf') format('truetype'),
+        url('../polices/Roboto-Regular.svg#Roboto-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Sansation';
+    src: url('../polices/SansationRegular.eot');
+    src: url('../polices/SansationRegular.eot?#iefix') format('embedded-opentype'),
+        url('../polices/SansationRegular.woff2') format('woff2'),
+        url('../polices/SansationRegular.woff') format('woff'),
+        url('../polices/SansationRegular.ttf') format('truetype'),
+        url('../polices/SansationRegular.svg#SansationRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+*{
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    overflow-x:hidden;
+}
+//-------------------------------Header--------------------------------
+.header{
+    height: 55px;
+    background-color: $headerColor;
+    color: #fff;
+    font-family: "Roboto",serif;
+    font-size: 22px;
+    p{
+        margin-top: 15px;
+    }
+    img{
+        float: left;
+        margin-top: 11px;
+        margin-right:12px;
+        margin-left: 19px;
+        width: 42px;
+        height: 35px;
+    }
+}
+
+ul{
+    position: relative;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    bottom: 45.5px;
+    font-size: 18px;   
+    li{
+        margin-right: 50px;
+        a{
+            text-decoration: none;
+            color: #fff;
+            &:hover{
+                border-bottom: 3px solid #fff;
+            }
+        }
+    }
+}
+
+//-------------------------------body--------------------------------
+.main{
+    @include sansationFont;
+    @include mainBackgroundColore;
+    @mixin sansationFont {
+        font-family: "Sansation",serif;
+    }
+}
+//-------------------------------baniere-------------------------------
+.baniere{
+    display: flex;
+    align-content: center;
+    height: 200px;
+}
+.baniere__infos{
+    width: 35%;
+    @include mainBackgroundColore;
+    color:$resumeColor ;
+    text-align: center;
+    padding: 0 11px 0 11px;
+    h1{
+        font-size: 20px;
+    }
+}
+.baniere__image{
+    //background: no-repeat center center / contain url('../images/test.jpg');
+    width: 65%;
+}
+.btn{
+    @include sansationFont;
+    background-color: $buttonColor;
+    color: #fff;
+    border-radius: 116px;
+    width: 82px;
+    height: 44px;
+    &:hover{
+        background-color: $resumeColor;
+        border-color: $resumeColor;
+    }
+}
+//-------------------------------Categorie-------------------------------
+.mieux-notes__titre{
+    @extend %fontSizeMain;
+    margin-top: 20px;
+}
+.action__titre{
+    @extend %fontSizeMain;
+}
+.horreur__titre{
+    @extend %fontSizeMain;
+}
+.sf__titre{
+    @extend %fontSizeMain;
+}
+.mieux-notes{
+    height: $heightItems;
+    &__film{
+        img{
+            height: $heightItems;
+        }
+    }
+}
+.action{
+    background-color: green;
+    height: $heightItems;
+}
+.sf{
+    background-color: blue;
+    height: $heightItems;
+}
+.horreur{
+    background-color: yellow;
+    height: $heightItems;
+}
+//---------------------------Carousel-----------------------------------------------
+.carousel{
+    position: relative;
+}
+.carousel__container{
+    transition: 0.3s;
+    transform: translate3d(0 , 0, 0);
+}
+.carousel__container::after{
+    content: '';
+    clear: both;
+    display: table;
+}
+.carousel__item{
+    float: left;
+}
+.carousel__next,.carousel__prev{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: $headerColor url('../images/right.png') center center no-repeat;
+    background-size: 20px 20px;
+    border-radius:50%;
+    top:50%;
+    margin-top: -20px;
+    right: 0;
+    box-shadow: 0 15px 35px #3232321a,0 5px 15px #0000001a;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+}
+.carousel__next:hover,.carousel__prev:hover{
+    transform: scale(1.2);
+}
+.carousel__prev{
+    right: auto;
+    left: -20px;
+}
+.carousel__next--hidden,.carousel__prev--hidden{
+    opacity: 0;
+}
+
+//-----------------------------Modal---------------------------------------
+.modal{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.4s both;
+}
+.modal[aria-hidden='true']{
+    animation-name: fadeOut;
+}
+.modal[aria-hidden='true'] .modal-wrapper{
+    animation-name: slideToBottom;
+}
+.modal-wrapper{
+    overflow: auto;
+    width: 600px;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    padding: 20px;
+    background-color: #FFF;
+    animation: slideFromTop 0.3s both;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes slideFromTop{
+    from{
+        transform: translateY(-50px);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+@keyframes fadeOut{
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
+@keyframes slideToBottom{
+    from{
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(50);
+    }
+}

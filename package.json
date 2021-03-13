@@ -1,0 +1,31 @@
+{
+  "name": "projet6",
+  "version": "1.0.0",
+  "description": "JustStreamIt est page web pour ses newsletters de classement de films.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start:dev": "webpack serve",
+    "sass": "sass --watch ./sass/main.scss:./css/style.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nyankoye/Projet6.git"
+  },
+  "author": "Nyankoye Yves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nyankoye/Projet6/issues"
+  },
+  "homepage": "https://github.com/Nyankoye/Projet6#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
