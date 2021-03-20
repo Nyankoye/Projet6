@@ -1,36 +1,11 @@
-async function request(url) {
-    try {
-        let res = await fetch(url)
-        return await res.json()
-    } catch (error) {
-        console.log(error)
-    }
-}
+//------------------------les liste des URL-------------------------------------------
+let urlListBestMovies = ['http://localhost:8000/api/v1/titles/?sort_by=-imdb_score','http://localhost:8000/api/v1/titles/?page=2&sort_by=-imdb_score']
+let urlListBestMoviesActions = ['http://localhost:8000/api/v1/titles/?genre=Action&sort_by=-imdb_score','http://localhost:8000/api/v1/titles/?genre=Action&page=2&sort_by=-imdb_score']
+let urlListBestMoviesHorror = ['http://localhost:8000/api/v1/titles/?genre=Horror&sort_by=-imdb_score','http://localhost:8000/api/v1/titles/?genre=Horror&page=2&sort_by=-imdb_score']
+let urlListBestMoviesSf = ['http://localhost:8000/api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score','http://localhost:8000/api/v1/titles/?genre=Sci-fi&page=2&sort_by=-imdb_score']
 
-async function getHighestImdbScore() {
-    let imdbList=[]
-    let maxPage = 200
 
-   for (let page = 1; page < maxPage+1; page++) {
-        let currentUrl="http://localhost:8000/api/v1/titles/?page="+page
-        let movies = await request(currentUrl)
-
-       for (movie of movies.results){ 
-        imdbList.push(Number(movie.imdb_score))
-        }
-    }
-    return Math.max.apply(Math, imdbList)
-}
-
-async function highestMovieRequest(){
-
-    let score = await getHighestImdbScore()
-    let highestMovie = await request("http://localhost:8000/api/v1/titles/?imdb_score="+score)
-    let image = document.getElementsByClassName('baniere__image')
-    image[0].style.background= "no-repeat center center / cover url("+highestMovie.results[0].image_url+")"
-    console.log(highestMovie.results[0].image_url)
-}
-
+//----------------------------les Classes------------------------------------------
 class Carousel{
 
     /**
@@ -52,7 +27,7 @@ class Carousel{
         this.options = Object.assign({},{
             slidesVisible: 1,
             slidesToScroll:1,
-            loop: false
+            loop: true
         },options)
         /* la variable children ne contiendra que seulement les elements
          enfant de base sans compter le nouvelle element couresel */
@@ -60,7 +35,6 @@ class Carousel{
         this.currentSlide = 0
         this.moveCallbacks = []
         this.isMobile = false
-
         //-------------------Création et  Modification du DOM--------------------
         this.root = this.createDivWithClass('carousel')
         this.container = this.createDivWithClass('carousel__container')
@@ -161,6 +135,7 @@ class Carousel{
             this.setStyle()
             this.moveCallbacks.forEach(cb => cb(this.currentSlide))
         }
+    
     }
 
     /**
@@ -187,100 +162,224 @@ class Carousel{
 
     get slidesVisible(){
         return this.isMobile ? 1 : this.options.slidesVisible
-    }
+    } 
 }
 
 //------------------------------Modal--------------------------------------------------------
 
+class Modal {
+    constructor(){
+        this.modalContainer = document.createElement('div')
+        this.modalContainer.className = 'modal'
+        document.body.appendChild(this.modalContainer)
 
-let modal = null
-const focusableSelector = "button, a, input, textarea" // contient la liste des element focusable avec la tabulation
-let focusablesElements = []
-let previouslyFocusElement = null // variable permettant de memoriser l'element qui à été precedemment focus
+        const contentContainer = document.createElement('div')
+        contentContainer.className = 'container'
+        this.modalContainer.appendChild(contentContainer)
 
-const openModal = event => {
-    event.preventDefault()
-    modal = document.querySelector(event.target.getAttribute('href'))
-    focusablesElements = Array.from(modal.querySelectorAll(focusableSelector))
-    previouslyFocusElement = document.querySelector(':focus')
-    modal.style.display = null //Permet de retirer le display none du html pour pouvoir afficher notre fêntre modal
-    focusablesElements[0].focus()
-    modal.removeAttribute('aria-hidden')
-    modal.setAttribute('aria-modal','true')
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+        const closeButton = document.createElement('button')
+        closeButton.innerHTML = '&times;'
+        closeButton.className = 'close-button'
+        contentContainer.appendChild(closeButton)
+        closeButton.addEventListener('click', () =>{
+            this.close()
+        })
+        
+        this.closeWithEscape()
+
+        this.content = document.createElement('div')
+        contentContainer.appendChild(this.content)
+    }
+    set html(value){
+        this.content.innerHTML = value;
+    }
+    open(){
+        this.modalContainer.classList.add('open')
+    }
+    close(){
+        this.modalContainer.classList.remove('open')
+    }
+    /**
+     * Fontion permetant de fermer notre fenêtre modal en tappant sur la touche echap 
+     */
+    closeWithEscape(){
+        window.addEventListener('keydown', event => {
+            if(event.key === 'Escape' || event.key === 'Esc'){
+                this.close()
+            }
+        })
+    }
 }
-
-const closeModal = event =>{
-    if (modal === null){
-        return
+//---------------------------Les Fonctions--------------------------------------------------
+/**
+ * Cette focntion permet d'envoyer une requête AJAX 
+ * @param {string} url lien
+ * @returns {JSON} une reponse sous format JSON
+ */
+async function request(url) {
+    try {
+        let res = await fetch(url)
+        return await res.json()
+    } catch (error) {
+        console.log(error)
     }
-    if (previouslyFocusElement !== null){
-        previouslyFocusElement.focus()
-    }
-    event.preventDefault()
-    modal.setAttribute('aria-hidden','true')
-    modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click',closeModal)
-    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
-    //--------------Gesion de l'effet de disparution----------------
-    const hideModal = () => {
-        modal.style.display = "none"
-        modal.removeEventListener('animationend', hideModal)
-        modal = null
-    }
-    modal.addEventListener('animationend', hideModal)
-}
-
-const stopPropagation = event => {
-    event.stopPropagation()
 }
 
 /**
- * Fonction permettant le bon fonctionement de la tabulation
- * @param {event} event 
+ * Recuperer les informations du meilleur film
  */
-const focusInModal = event => {
-    event.preventDefault()
-    let index = focusablesElements.findIndex(f => f === modal.querySelector(':focus'))
-    if (event.shiftKey === true){
-        index--
-    } else{
-        index++
-    }
-    if (index >= focusablesElements.length){
-        index = 0
-    }
-    if (index < 0){
-        index = focusablesElements.length -1
-    }
-    focusablesElements[index].focus()
-    console.log(index)
+async function highestImdbScoreMovie(){
+    let movies = await request('http://localhost:8000/api/v1/titles/?sort_by=-imdb_score')
+    let infosMovie = document.querySelector('.baniere__infos')
+    document.querySelector('.summary')
+    movieTitle = document.createElement('h1')
+    infosMovie.insertAdjacentElement('afterbegin',movieTitle) // inserer l'element juste arès l'element parent
+    movieTitle.textContent = movies.results[0].title
+    let movieImage = document.querySelector('.baniere__image')
+    movieImage.innerHTML = `<img id=${movies.results[0].id} src=${movies.results[0].image_url}></img>`
+    button = document.querySelector('.btn')
+    button.addEventListener('click', function(){
+        displayModal(movies.results[0].id)
+    })
 }
-/* Nous aimerions que l'orsque nous tappons sur la touche echap que nous puission 
-naviguer entre les elements focusable dans la fênetre modale*/
-window.addEventListener('keydown', event => {
-    if(event.key === 'Escape' || event.key === 'Esc'){
-        closeModal(event)
-    }
-    if(event.key === 'Tab' && modal !== null){
-        focusInModal(event)
-    }
-})
 
-document.addEventListener('DOMContentLoaded',function(){
-    new Carousel(document.querySelector('.mieux-notes'),{
+async function displayModal(id) {
+    let response = await fetch('/modal.html')
+    let movie = await request('http://localhost:8000/api/v1/titles/'+id)
+    if (response.status === 200) {
+        let html = await response.text();
+        const element = document.createRange().createContextualFragment(html).querySelector('.modal')
+        writeModalContent(element,movie)
+        let modal = new Modal();
+        modal.html = element.innerHTML
+        modal.open()
+    }
+}
+
+/**
+ * Cette fontion nous permet d'écrire des informations supplementaire sur la fênetre modale 
+ * @param {Array} movie lites des film
+ */
+function writeModalContent(element,movie){
+
+    let title = element.querySelector('.infos_header')
+    title.innerHTML = `<h1 id="titlemodal">${movie.title}</h1><span> Durée: ${formatDuration(movie.duration)} | 
+    </span><span>Date: ${movie.year}| </span><span>Score: ${movie.imdb_score}| </span>
+    <span> Rated: ${movie.rated}</span>`
+
+    title.insertAdjacentHTML('beforeend',`<p class="resume"> Description: ${movie.description}</p>`)
+
+    let image = element.querySelector('.infos_image')
+    image.innerHTML = `<img src="${movie.image_url}" alt="image film">`
+
+    let boxOffice = element.querySelector('.box-Office')
+    boxOffice.innerHTML=`Box Office: ${formatMoney(movie.worldwide_gross_income)} | Genres`
+
+    let genres = element.querySelector('.genres')
+    arrayTest(movie.genres,genres)
+
+    genres.insertAdjacentHTML('afterend',` |Pays:`)
+    let countries = element.querySelector('.pays')
+    arrayTest(movie.countries,countries)
+    
+    let actors = element.querySelector('.acteurs')
+    actors.insertAdjacentHTML('afterbegin','Acteurs: ')
+    arrayTest(movie.actors,actors)
+
+    let directors = element.querySelector('.directors')
+    directors.insertAdjacentHTML('afterbegin','Réalisateur: ')
+    arrayTest(movie.directors,directors)
+}
+
+/**
+ * @param {Array} array liste à parcourir si possible
+ * @param {string} element balise html selectionnée
+ */
+const arrayTest = (array,element) =>{
+    if (Array.isArray(array)){
+        for(value of array){
+            element.insertAdjacentHTML('beforeend',`<span> ${value},</span>`)
+        }
+    }else{
+        element.insertAdjacentHTML('beforeend',`<span> ${array},</span>`)
+    }
+}
+
+/**
+ * formate la durée par exemple: 1h 30min
+ * @param {Number} duration le nombre de minute
+ * @returns {string} le nouveau format
+ */
+const formatDuration = (duration) =>{
+    let hours = 0
+    let minutes = 0
+    if(duration >= 60){
+        hours = Math.trunc(duration/60)
+        minutes = duration % 60
+        if (minutes === 0){
+            return `${hours}h`
+        }else{
+            return `${hours}h ${minutes}min`
+        }
+    }else{
+        minutes = duration
+        return `${minutes}min`
+    }
+}
+
+/**
+ * Format monétaire d’un nombre
+ * @param {Number} money le nombre à formater
+ * @returns {string} le nombre formaté
+ */
+const formatMoney = (money) =>{
+    if (money !== null){
+        const usd = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+          });
+          return usd.format(money)
+    }else{
+        return "Pas d'infos"
+    }
+}
+
+/**
+ * Cette fontcion pertmet de recuperer des film d'une categorie données
+ * @param {Array} urlList contien la liste des liens à parcourir
+ * @param {string} categorie le nom de la classe de la div contenant les images des films
+ */
+async function highestsImdbScoreMovies(urlList,categorie){
+    let bestMovie = document.querySelector(`.${categorie}`)
+
+    for (url of urlList){
+        let movies = await request(url)
+        movies.results.forEach(movie =>{
+            let item = document.createElement('div')
+            bestMovie.appendChild(item)
+            item.innerHTML = `<img id=${movie.id} src=${movie.image_url}></img>`
+            document.getElementById(`${movie.id}`).addEventListener('click', function(){
+                displayModal(movie.id)
+            })
+        })
+    }
+
+    new Carousel(document.querySelector(`.${categorie}`),{
         slidesToScroll: 1,
         slidesVisible: 5,
-        loop: false
     })
+}
 
-    document.querySelectorAll('.js-modal').forEach(a => {
-        a.addEventListener('click', openModal)
-    })  
 
-    highestMovieRequest();
+
+
+//---------------------------------Main---------------------------------
+
+document.addEventListener('DOMContentLoaded',function(){  
+    highestImdbScoreMovie()
+    highestsImdbScoreMovies(urlListBestMovies,'mieux-notes')
+    highestsImdbScoreMovies(urlListBestMoviesActions,'action')
+    highestsImdbScoreMovies(urlListBestMoviesHorror,'horreur')
+    highestsImdbScoreMovies(urlListBestMoviesSf,'sf')
 })
-

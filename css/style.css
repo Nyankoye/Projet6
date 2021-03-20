@@ -1,7 +1,9 @@
+@charset "UTF-8";
 .sf__titre, .horreur__titre, .action__titre, .mieux-notes__titre {
   font-size: 18px;
-  margin-left: 15px;
-  margin-bottom: 5px;
+  margin-left: 44px;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 @font-face {
@@ -33,22 +35,18 @@ body {
 }
 
 .header {
-  height: 55px;
+  height: 60px;
   background-color: #68839C;
   color: #fff;
   font-family: "Roboto", serif;
   font-size: 22px;
 }
-.header p {
-  margin-top: 15px;
-}
 .header img {
   float: left;
-  margin-top: 11px;
-  margin-right: 12px;
-  margin-left: 19px;
-  width: 42px;
-  height: 35px;
+  width: 70px;
+  height: auto;
+  margin-left: 44px;
+  margin-top: 6px;
 }
 
 ul {
@@ -56,44 +54,78 @@ ul {
   list-style-type: none;
   display: flex;
   justify-content: flex-end;
-  bottom: 45.5px;
+  align-items: center;
+  top: 50%;
   font-size: 18px;
 }
 ul li {
-  margin-right: 50px;
+  float: left;
+  width: 15%;
+  text-align: center;
+  position: relative;
+  background-color: #68839C;
+  padding-bottom: 5px;
+  padding-left: 7px;
 }
-ul li a {
+ul a {
   text-decoration: none;
   color: #fff;
 }
-ul li a:hover {
+ul a:hover {
   border-bottom: 3px solid #fff;
+}
+
+.sous {
+  display: none;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  margin: 14px;
+  padding: 0px;
+}
+.sous li {
+  float: none;
+  width: 100%;
+  text-align: left;
+}
+
+nav > ul li:hover .sous {
+  display: block;
+}
+
+.deroulant > a::after {
+  content: " ▼";
+  font-size: 12px;
 }
 
 .main {
   font-family: "Sansation", serif;
   background-color: rgba(104, 131, 156, 0.1);
+  width: 768px;
+  margin: auto;
+  overflow: hidden;
 }
 
 .baniere {
   display: flex;
+  justify-content: center;
   align-content: center;
-  height: 200px;
+  height: 268px;
+  background-color: rgba(104, 131, 156, 0.1);
 }
 
 .baniere__infos {
-  width: 35%;
-  background-color: rgba(104, 131, 156, 0.1);
   color: #2C0101;
   text-align: center;
   padding: 0 11px 0 11px;
+  margin: auto;
 }
 .baniere__infos h1 {
   font-size: 20px;
 }
 
 .baniere__image {
-  width: 65%;
+  width: 182px;
 }
 
 .btn {
@@ -109,34 +141,53 @@ ul li a:hover {
   border-color: #2C0101;
 }
 
-.mieux-notes__titre {
-  margin-top: 20px;
-}
-
 .mieux-notes {
   height: 150px;
 }
-.mieux-notes__film img {
+.mieux-notes img {
   height: 150px;
+}
+.mieux-notes img:hover {
+  transform: scale(1.2);
+  transition: 0.3s;
 }
 
 .action {
-  background-color: green;
   height: 150px;
+}
+.action img {
+  height: 150px;
+}
+.action img:hover {
+  transform: scale(1.2);
+  transition: 0.3s;
 }
 
 .sf {
-  background-color: blue;
   height: 150px;
+}
+.sf img {
+  height: 150px;
+}
+.sf img:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
 }
 
 .horreur {
-  background-color: yellow;
   height: 150px;
+}
+.horreur img {
+  height: 150px;
+}
+.horreur img:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
 }
 
 .carousel {
   position: relative;
+  margin-left: 44px;
 }
 
 .carousel__container {
@@ -175,16 +226,21 @@ ul li a:hover {
 
 .carousel__prev {
   right: auto;
-  left: -20px;
+  left: -40px;
+  background: #68839C url("../images/left.png") center center no-repeat;
 }
 
 .carousel__next--hidden, .carousel__prev--hidden {
   opacity: 0;
 }
 
-.modal {
-  position: fixed;
+.modal.open {
   display: flex;
+}
+
+.modal {
+  display: none;
+  position: fixed;
   align-items: center;
   justify-content: center;
   top: 0;
@@ -195,22 +251,45 @@ ul li a:hover {
   animation: fadeIn 0.4s both;
 }
 
-.modal[aria-hidden=true] {
-  animation-name: fadeOut;
-}
-
-.modal[aria-hidden=true] .modal-wrapper {
-  animation-name: slideToBottom;
-}
-
-.modal-wrapper {
+.modal .container {
   overflow: auto;
-  width: 600px;
+  width: 768px;
   max-width: calc(100vw - 20px);
   max-height: calc(100vh - 20px);
   padding: 20px;
   background-color: #FFF;
   animation: slideFromTop 0.3s both;
+  border-radius: 0.25rem;
+  position: relative;
+}
+
+.modal .close-button {
+  font-size: 150%;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  position: absolute;
+  top: -0.2rem;
+  right: 0;
+}
+
+.infos_principale {
+  display: flex;
+  height: 268px;
+}
+
+.infos_header {
+  width: calc(100% - 182px);
+  text-align: center;
+}
+
+.acteurs {
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+
+.infos {
+  margin-top: 14px;
 }
 
 @keyframes fadeIn {
