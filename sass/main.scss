@@ -70,15 +70,14 @@ ul{
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    top: 50%;
     font-size: 18px;
     li{
         float: left;
-        width: 15%;
+        width: 16%;
         text-align: center;
         position: relative;
         background-color: $headerColor;
-        padding-bottom:5px;
+        padding-bottom:4px;
         padding-left: 7px;
     }
     a{
@@ -96,12 +95,13 @@ ul{
     position: absolute;
     width: 100%;
     z-index: 1;
-    margin: 14px;
+    margin: 6px;
     padding: 0px; 
     li{
         float: none;
         width: 100%;
         text-align: left;
+        font-size: 16px;
     }
 }
 
@@ -110,14 +110,13 @@ nav > ul li:hover .sous{
 }
 .deroulant > a::after{
     content: " ▼";
-    font-size: 12px;
 }
 
 //-------------------------------body--------------------------------
 .main{
     @include sansationFont;
     @include mainBackgroundColore;
-    width: 768px;
+    width: 70%;
     margin: auto;
     overflow: hidden;
 }
@@ -171,6 +170,7 @@ nav > ul li:hover .sous{
     height: $heightItems;
         img{
             height: $heightItems;
+            transition: 0.3s;
             &:hover{
                 transform: scale(1.2);
                 transition: 0.3s;
@@ -181,6 +181,7 @@ nav > ul li:hover .sous{
     height: $heightItems;
     img{
         height: $heightItems;
+        transition: 0.3s;
         &:hover{
             transform: scale(1.2);
             transition: 0.3s;
@@ -191,6 +192,7 @@ nav > ul li:hover .sous{
     height: $heightItems;
     img{
         height: $heightItems;
+        transition: 0.3s;
         &:hover{
             transform: scale(1.1);
             transition: 0.3s;
@@ -201,6 +203,7 @@ nav > ul li:hover .sous{
     height: $heightItems;
     img{
         height: $heightItems;
+        transition: 0.3s;
         &:hover{
             transform: scale(1.1);
             transition: 0.3s;
@@ -265,6 +268,7 @@ nav > ul li:hover .sous{
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
+    transition: 0.3;
     animation: fadeIn 0.4s both;
 }
 
@@ -288,6 +292,10 @@ nav > ul li:hover .sous{
     position: absolute;
     top: -0.2rem;
     right: 0;
+}
+.close-button:hover{
+    transition: 0.3s;
+    color: red;
 }
 
 .infos_principale{
@@ -322,19 +330,25 @@ nav > ul li:hover .sous{
         transform: translateY(0);
     }
 }
-@keyframes fadeOut{
-    from{
-        opacity: 1;
+@media screen and (max-width: 800px) {
+    .main {
+        width: 100%;
     }
-    to{
-        opacity: 0;
+    ul{
+        position: relative;
+        list-style-type: none;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 18px;
+        li{
+            float: left;
+            width: 40%;
+            text-align: center;
+            position: relative;
+            background-color: $headerColor;
+            padding-bottom:4px;
+            padding-left: 7px;
+        }
     }
-}
-@keyframes slideToBottom{
-    from{
-        transform: translateY(0);
-    }
-    to{
-        transform: translateY(50);
-    }
-}
+  } 

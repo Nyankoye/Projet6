@@ -55,16 +55,15 @@ ul {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  top: 50%;
   font-size: 18px;
 }
 ul li {
   float: left;
-  width: 15%;
+  width: 16%;
   text-align: center;
   position: relative;
   background-color: #68839C;
-  padding-bottom: 5px;
+  padding-bottom: 4px;
   padding-left: 7px;
 }
 ul a {
@@ -80,13 +79,14 @@ ul a:hover {
   position: absolute;
   width: 100%;
   z-index: 1;
-  margin: 14px;
+  margin: 6px;
   padding: 0px;
 }
 .sous li {
   float: none;
   width: 100%;
   text-align: left;
+  font-size: 16px;
 }
 
 nav > ul li:hover .sous {
@@ -95,13 +95,12 @@ nav > ul li:hover .sous {
 
 .deroulant > a::after {
   content: " ▼";
-  font-size: 12px;
 }
 
 .main {
   font-family: "Sansation", serif;
   background-color: rgba(104, 131, 156, 0.1);
-  width: 768px;
+  width: 70%;
   margin: auto;
   overflow: hidden;
 }
@@ -146,6 +145,7 @@ nav > ul li:hover .sous {
 }
 .mieux-notes img {
   height: 150px;
+  transition: 0.3s;
 }
 .mieux-notes img:hover {
   transform: scale(1.2);
@@ -157,6 +157,7 @@ nav > ul li:hover .sous {
 }
 .action img {
   height: 150px;
+  transition: 0.3s;
 }
 .action img:hover {
   transform: scale(1.2);
@@ -168,6 +169,7 @@ nav > ul li:hover .sous {
 }
 .sf img {
   height: 150px;
+  transition: 0.3s;
 }
 .sf img:hover {
   transform: scale(1.1);
@@ -179,6 +181,7 @@ nav > ul li:hover .sous {
 }
 .horreur img {
   height: 150px;
+  transition: 0.3s;
 }
 .horreur img:hover {
   transform: scale(1.1);
@@ -248,6 +251,7 @@ nav > ul li:hover .sous {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
+  transition: 0.3;
   animation: fadeIn 0.4s both;
 }
 
@@ -271,6 +275,11 @@ nav > ul li:hover .sous {
   position: absolute;
   top: -0.2rem;
   right: 0;
+}
+
+.close-button:hover {
+  transition: 0.3s;
+  color: red;
 }
 
 .infos_principale {
@@ -308,20 +317,27 @@ nav > ul li:hover .sous {
     transform: translateY(0);
   }
 }
-@keyframes fadeOut {
-  from {
-    opacity: 1;
+@media screen and (max-width: 800px) {
+  .main {
+    width: 100%;
   }
-  to {
-    opacity: 0;
+
+  ul {
+    position: relative;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 18px;
   }
-}
-@keyframes slideToBottom {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(50);
+  ul li {
+    float: left;
+    width: 40%;
+    text-align: center;
+    position: relative;
+    background-color: #68839C;
+    padding-bottom: 4px;
+    padding-left: 7px;
   }
 }
 

@@ -154,14 +154,14 @@ class Carousel{
      */
 
     get slidesToScroll(){
-        return this.isMobile ? 1 : this.options.slidesToScroll
+        return this.isMobile ? 2 : this.options.slidesToScroll
     }
     /**
      * @returns {Number}
      */
 
     get slidesVisible(){
-        return this.isMobile ? 1 : this.options.slidesVisible
+        return this.isMobile ? 2 : this.options.slidesVisible
     } 
 }
 
@@ -243,6 +243,11 @@ async function highestImdbScoreMovie(){
     })
 }
 
+/**
+ * cette focntion permet de faire une requête puis de recuperer le contenu du HTML model et 
+ * de l'afficher dans une fenetre modale
+ * @param {Number} id identifiant du film à chercher
+ */
 async function displayModal(id) {
     let response = await fetch('/modal.html')
     let movie = await request('http://localhost:8000/api/v1/titles/'+id)
