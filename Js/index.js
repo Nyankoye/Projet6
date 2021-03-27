@@ -236,7 +236,7 @@ async function highestImdbScoreMovie(){
     infosMovie.insertAdjacentElement('afterbegin',movieTitle) // inserer l'element juste arès l'element parent
     movieTitle.textContent = movies.results[0].title
     let movieImage = document.querySelector('.baniere__image')
-    movieImage.innerHTML = `<img id=${movies.results[0].id} src=${movies.results[0].image_url}></img>`
+    movieImage.innerHTML = `<img src=${movies.results[0].image_url}></img>`
     button = document.querySelector('.btn')
     button.addEventListener('click', function(){
         displayModal(movies.results[0].id)
