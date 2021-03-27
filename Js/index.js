@@ -231,7 +231,8 @@ async function request(url) {
 async function highestImdbScoreMovie(){
     let movies = await request('http://localhost:8000/api/v1/titles/?sort_by=-imdb_score')
     let infosMovie = document.querySelector('.baniere__infos')
-    document.querySelector('.summary')
+    let BestmoviesDetail = await request('http://localhost:8000/api/v1/titles/'+movies.results[0].id)
+    document.querySelector('.summary').textContent = "Description: " + BestmoviesDetail.long_description
     movieTitle = document.createElement('h1')
     infosMovie.insertAdjacentElement('afterbegin',movieTitle) // inserer l'element juste arès l'element parent
     movieTitle.textContent = movies.results[0].title
@@ -269,7 +270,7 @@ function writeModalContent(element,movie){
 
     let title = element.querySelector('.infos_header')
     title.innerHTML = `<h1 id="titlemodal">${movie.title}</h1><span> Durée: ${formatDuration(movie.duration)} | 
-    </span><span>Date: ${movie.year}| </span><span>Score: ${movie.imdb_score}| </span>
+    </span><span>Date: ${movie.year}| </span><span>Score: ${movie.imdb_score} | </span>
     <span> Rated: ${movie.rated}</span>`
 
     title.insertAdjacentHTML('beforeend',`<p class="resume"> Description: ${movie.description}</p>`)
