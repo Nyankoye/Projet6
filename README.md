@@ -10,6 +10,7 @@ Le lien de l’API est le suivant: [OCMovies-API](https://github.com/OpenClassro
  3. Ouvrir le fichier index.html avec un navigateur
  * En cas de message d'erreur du type CORS Header: Access-Control-Allow-Origin utiliser l'option 2, c'est celle que j'ai utilisée pour developper l'application web.
  ## Option 2 (Recommander)
+ * Si vous avez commencer par l'option 1, veuillez retirer l'HTML inserer avant de commencer l'option 2
  1. Installer et lancer l'API en suivant les instructions sur [OCMovies-API](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR)
  2. Si vous n'avez pas npm rendez-vous sur [la page suivante](https://nodejs.org/en/) pour telecharger et installer
  3. Installer [webpack](https://webpack.js.org/) en utilisant la commande: npm install webpack webpack-cli --save-dev
