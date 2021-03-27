@@ -27,7 +27,7 @@ class Carousel{
         this.options = Object.assign({},{
             slidesVisible: 1,
             slidesToScroll:1,
-            loop: true
+            loop: false
         },options)
         /* la variable children ne contiendra que seulement les elements
          enfant de base sans compter le nouvelle element couresel */
@@ -72,7 +72,7 @@ class Carousel{
         this.root.appendChild(prevBoutton)
         nextButton.addEventListener('click',this.next.bind(this))
         prevBoutton.addEventListener('click',this.prev.bind(this))
-        if(this.options.loop = false){
+        if(this.options.loop === true){
             return
         }
         // Cacher le boutton de navigation s'il n'y a plus d'element
@@ -372,7 +372,7 @@ async function highestsImdbScoreMovies(urlList,categorie){
 
     new Carousel(document.querySelector(`.${categorie}`),{
         slidesToScroll: 1,
-        slidesVisible: 5,
+        slidesVisible: 5
     })
 }
 
