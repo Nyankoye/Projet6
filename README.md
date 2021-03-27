@@ -3,7 +3,7 @@ Ce projet consiste à créer une application web permettant de visualiser en tem
 Les informations sur les films se trouvent sur une API locale que vous pouvez installer sur votre ordinateur. 
 Le lien de l’API est le suivant: [OCMovies-API](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR)
 # Execution du code
- Pour exécuter ce code, vous devez suivre les informations suivantes:
+ Pour exécuter ce code, vous devez suivre les instructions suivantes:
  ## Option 1 (Risque d'erreur)
  1. Installer et lancer l'API en suivant les instructions sur [OCMovies-API](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR)
  2. Inserer ce HTML: " <script src="./JS/index.js"></script> "  juste avant la fermeture de la balise (body)
