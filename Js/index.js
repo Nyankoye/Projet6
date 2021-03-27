@@ -249,7 +249,7 @@ async function highestImdbScoreMovie(){
  * @param {Number} id identifiant du film à chercher
  */
 async function displayModal(id) {
-    let response = await fetch('/modal.html')
+    let response = await fetch('./modal.html')
     let movie = await request('http://localhost:8000/api/v1/titles/'+id)
     if (response.status === 200) {
         let html = await response.text();
