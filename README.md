@@ -11,5 +11,7 @@ Le lien de l’API est le suivant: [OCMovies-API](https://github.com/OpenClassro
  ## Option 2 
  * Installer et lancer l'API en suivant les instructions sur [OCMovies-API](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR)
  * Si vous n'avez pas npm rendez-vous sur [la page suivante](https://nodejs.org/en/)
+ * Installer [webpack](https://webpack.js.org/) en utilisant la commande: npm install webpack webpack-cli --save-dev
+ * Installer [webpack-dev-server](https://github.com/webpack/webpack-dev-server) en utilisant la commande:  npm install webpack-dev-server --save-dev
  * Utiliser la commande: npm run start:dev
  * Cette commande permet de lancer le server local et ouvrira automatiquement la page web.
