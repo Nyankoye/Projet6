@@ -7,9 +7,10 @@ Le lien de l’API est le suivant: [OCMovies-API](https://github.com/OpenClassro
  ## Option 1
  * Installer et lancer l'API en suivant les instructions sur [OCMovies-API](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR)
  * Ouvrir le fichier index.html avec un navigateur
- * En cas de message d'erreur du type CORS Header: Access-Control-Allow-Origin utiliser l'option 2, c'est celle que j'ai utilisée pour developper l'application web.
+ * En cas de message d'erreur du type CORS Header: Access-Control-Allow-Origin utiliser [l'option 2](#Option 2), c'est celle que j'ai utilisée pour developper l'application web.
  ## Option 2 
  * Installer et lancer l'API en suivant les instructions sur [OCMovies-API](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR)
  * Si vous n'avez pas npm rendez-vous sur [la page suivante](https://nodejs.org/en/)
  * Utiliser la commande: npm run start:dev
  * Cette commande permet de lancer le server local et ouvrira automatiquement la page web.
+##
