@@ -18,4 +18,9 @@ Le lien de l’API est le suivant: [OCMovies-API](https://github.com/OpenClassro
  5. Utiliser la commande: npm run start:dev
  * Cette commande permet de lancer le server local et ouvrira automatiquement la page web.
  * Pour les prochaines fois vous n'aurez qu'à réutiliser la commande de l'étape 5 c'est à dire: npm run start:dev
+ * 
 [button url="http://www.google.com"]
+
+{% include button.html url="http://www.google.com" %}
+
+[Click me](http://www.google.com){: .btn}
